@@ -4,6 +4,10 @@ from pprint import pprint
 
 from datetime import datetime
 
+from pandas import pandas as pd
+
+import numpy as np
+
 def to_usd(my_price):  
     return "${0:,.2f}".format(my_price)
 
@@ -73,25 +77,43 @@ else:
 #Remove "Done" from list.
 user_list.remove('done')
 
-print(user_list)
+#print(user_list)
 
 #####RECEIPT PRINTING SECTION
 
 print("----------------------------------")
-print("DIAMOND GROCERIES")
-print("WWW.DIAMOND-GROCERIES.EDU")
+print("PROBABLY FRESH GROCERIES")
+print("WWW.PROBABLY-FRESH-GROCERIES.EDU")
 print("----------------------------------")
 print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("----------------------------------")
 print("SELECTED PRODUCTS:")
 
+#Creating receipt output (... Name  ($123))
 for i in user_list:
-    print([p['name'] for p in products if p["id"] == int(i)])
+    price_usd = to_usd(products[int(i)]['price'])
+    print(f" ... {products[int(i)]['name']}  ({price_usd})")
+
+#Adding a total price list
+totalprice = []
+for i in user_list:
+     totalprice.append(products[int(i)]['price'])
+     
+#summing total price     
+print(to_usd(np.sum(totalprice)))
 
 
-# for items in products:
-#     price_usd = to_usd(products[items]['price'])
-#     print(f"{products[items]['name']} (${price_usd})")
+
+
+
+
+
+
+# for i in user_list:
+#     print(products[int(i)]['name'])
+
+# print(totalproducts)
+# print(totalprice)
 
 # for items in user_list:
 #     print(items.products['id'])
@@ -116,3 +138,19 @@ for i in user_list:
 # for p in products:
 #     if p["department"] not in departments:
 #         departments.append(p["department"]))
+
+
+#Creating Lists of Product Choices
+# totalproducts = []
+# totalprice = []
+# productprice = []
+# for i in user_list:
+#     totalproducts.append([p['name'] for p in products if p["id"] == int(i)])
+
+# for i in user_list:
+#     totalprice.append([p['price'] for p in products if p["id"] == int(i)])
+
+# #Printing Results from Product Choices
+# for i in user_list:
+#     print([[p['name']," (${0:.2f})".format(p['price'])] 
+#     for p in products if p["id"] == int(i)])
