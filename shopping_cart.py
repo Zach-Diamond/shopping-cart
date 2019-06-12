@@ -36,33 +36,29 @@ products = [
 
 ###ESTABLISHING BASLINES
 
-##Initializing empty list for user inputs
+#Initializing empty list for user inputs
 user_list = []
 
-
-##Creating "viable" options and converting to string
+#Creating "viable" options and converting to string
 viable = [p["id"] for p in products]
 viable.append("done")
 viable = str(viable)
 
-###USER INPUT SECTION
+#####USER INPUT SECTION#####
 
 #First user input
 user_input = input("Please input a Product ID or type DONE: ").lower()
-
 
 #If you immediately type DONE, cancel and quit.
 if user_input.lower() == "done":
     print("TRANSCATION CANCELLED.")
     quit()
 
-
 #Check users input against viable options, otherwise append
 if user_input not in viable:
     print("ID not recognized. Please try again.")
 else:
     user_list.append(user_input)
-
 
 #Second input. If not viable, get to viable, otherwise append.
 while user_input != "done":
@@ -71,19 +67,18 @@ while user_input != "done":
         print ('ID not recognized. Please try again.')
     else: user_list.append(user_input)
 else:
-    print("DONE")
-
+    print("")
 
 #Remove "Done" from list.
 user_list.remove('done')
 
 #print(user_list)
 
-#####RECEIPT PRINTING SECTION
+#####RECEIPT PRINTING SECTION#####
 
 print("----------------------------------")
-print("PROBABLY FRESH GROCERIES")
-print("WWW.PROBABLY-FRESH-GROCERIES.EDU")
+print("QUESTIONABLY FRESH GROCERIES")
+print("WWW.QUESTIONABLY-FRESH-GROCERIES.EDU")
 print("----------------------------------")
 print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("----------------------------------")
@@ -95,12 +90,41 @@ for i in user_list:
     print(f" ... {products[int(i)]['name']}  ({price_usd})")
 
 #Adding a total price list
-totalprice = []
+chosen_prices = []
 for i in user_list:
-     totalprice.append(products[int(i)]['price'])
-     
-#summing total price     
-print(to_usd(np.sum(totalprice)))
+     chosen_prices.append(products[int(i)]['price'])
+
+#Setting Tax Rate (8.75%)
+taxrate = .0875
+taxincrease = 1.0875
+
+#Simple Tax (8.875%)
+tax = []
+for i in chosen_prices:
+    tax.append(i*taxrate)
+
+#Increasing by Tax Rate (8.875%)
+tax_plus_price = []
+for i in chosen_prices:
+    tax_plus_price.append(i*taxincrease)
+
+#Sum and print total price and tax 
+total_price = to_usd(np.sum(chosen_prices))
+total_tax = to_usd(np.sum(tax))
+total_price_tax = to_usd(np.sum(tax_plus_price))
+
+#Printing totals
+print("----------------------------------")
+
+print("SUBTOTAL: "+total_price)
+print("TAX: "+total_tax)
+print("TOTAL: "+total_price_tax)
+
+print("----------------------------------")
+print("THANKS, SEE YOU AGAIN SOON!")
+print("----------------------------------")
+
+
 
 
 
@@ -113,7 +137,7 @@ print(to_usd(np.sum(totalprice)))
 #     print(products[int(i)]['name'])
 
 # print(totalproducts)
-# print(totalprice)
+# print(chosen_prices)
 
 # for items in user_list:
 #     print(items.products['id'])
@@ -142,13 +166,13 @@ print(to_usd(np.sum(totalprice)))
 
 #Creating Lists of Product Choices
 # totalproducts = []
-# totalprice = []
+# chosen_prices = []
 # productprice = []
 # for i in user_list:
 #     totalproducts.append([p['name'] for p in products if p["id"] == int(i)])
 
 # for i in user_list:
-#     totalprice.append([p['price'] for p in products if p["id"] == int(i)])
+#     chosen_prices.append([p['price'] for p in products if p["id"] == int(i)])
 
 # #Printing Results from Product Choices
 # for i in user_list:
