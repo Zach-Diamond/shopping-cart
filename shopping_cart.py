@@ -30,43 +30,49 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-#print(products)
-# pprint(products)
-
+##Initializing empty list for user inputs
 user_list = []
 
+##Creating "viable" options and converting to string
 viable = [p["id"] for p in products]
 viable.append("done")
+viable = str(viable)
 
+#First user input
 user_input = input("Please input a Product ID or type DONE: ").lower()
 
 if user_input not in viable:
-    print("ID Not Recognized. Please try again.")
+    print("ID not recognized. Please try again.")
 else:
     user_list.append(user_input)
 
-
 while user_input != "done":
-     user_input = input("Please input another Product ID or type DONE: ").lower()
-     user_list.append(user_input)
+    user_input = input("Please input another Product ID or type DONE: ").lower()
+    if user_input not in viable:
+        print ('ID not recognized. Please try again.')
+    else: user_list.append(user_input)
 else:
     print("DONE")
+
 user_list.remove('done')
 
-print("----------------------------------")
-print("DIAMOND GROCERIES")
-print("WWW.DIAMOND-GROCERIES.EDU")
-print("----------------------------------")
-print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-print("----------------------------------")
-print("SELECTED PRODUCTS:")
+print(user_list)
+
+
+# print("----------------------------------")
+# print("DIAMOND GROCERIES")
+# print("WWW.DIAMOND-GROCERIES.EDU")
+# print("----------------------------------")
+# print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+# print("----------------------------------")
+# print("SELECTED PRODUCTS:")
 
 # for items in user_list:
 #     price_usd = to_usd(products['price'])
 #     print(f"{products['name']} (${price_usd})")
 
-for items in user_list:
-    print(items.products['id'])
+# for items in user_list:
+#     print(items.products['id'])
 
     # name = " ... "+items.products["name"].title()
     # price = " (${0:.2f})".format(products["price"])
