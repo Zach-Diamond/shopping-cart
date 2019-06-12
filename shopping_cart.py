@@ -28,7 +28,7 @@ products = [
     {"id":18, "name": "Pizza for One Suprema Frozen Pizza", "department": "frozen", "aisle": "frozen pizza", "price": 12.50},
     {"id":19, "name": "Gluten Free Quinoa Three Cheese & Mushroom Blend", "department": "dry goods pasta", "aisle": "grains rice dried goods", "price": 3.99},
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
-] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
+ ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
 ##Initializing empty list for user inputs
 user_list = []
@@ -41,11 +41,18 @@ viable = str(viable)
 #First user input
 user_input = input("Please input a Product ID or type DONE: ").lower()
 
+#If you immediately type DONE, cancel and quit.
+if user_input.lower() == "done":
+    print("TRANSCATION CANCELLED.")
+    quit()
+
+#Check users input against viable options, otherwise append
 if user_input not in viable:
     print("ID not recognized. Please try again.")
 else:
     user_list.append(user_input)
 
+#Second input. If not viable, get to viable, otherwise append.
 while user_input != "done":
     user_input = input("Please input another Product ID or type DONE: ").lower()
     if user_input not in viable:
@@ -54,22 +61,24 @@ while user_input != "done":
 else:
     print("DONE")
 
+#Remove "Done" from list.
 user_list.remove('done')
 
 print(user_list)
 
+#####RECEIPT PRINTING SECTION
 
-# print("----------------------------------")
-# print("DIAMOND GROCERIES")
-# print("WWW.DIAMOND-GROCERIES.EDU")
-# print("----------------------------------")
-# print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-# print("----------------------------------")
-# print("SELECTED PRODUCTS:")
+print("----------------------------------")
+print("DIAMOND GROCERIES")
+print("WWW.DIAMOND-GROCERIES.EDU")
+print("----------------------------------")
+print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+print("----------------------------------")
+print("SELECTED PRODUCTS:")
 
-# for items in user_list:
-#     price_usd = to_usd(products['price'])
-#     print(f"{products['name']} (${price_usd})")
+for items in products:
+    # price_usd = to_usd(products[items]['price'])
+    # print(f"{products[items]['name']} (${price_usd})")
 
 # for items in user_list:
 #     print(items.products['id'])
