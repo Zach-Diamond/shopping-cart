@@ -30,27 +30,35 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
  ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
+###ESTABLISHING BASLINES
+
 ##Initializing empty list for user inputs
 user_list = []
+
 
 ##Creating "viable" options and converting to string
 viable = [p["id"] for p in products]
 viable.append("done")
 viable = str(viable)
 
+###USER INPUT SECTION
+
 #First user input
 user_input = input("Please input a Product ID or type DONE: ").lower()
+
 
 #If you immediately type DONE, cancel and quit.
 if user_input.lower() == "done":
     print("TRANSCATION CANCELLED.")
     quit()
 
+
 #Check users input against viable options, otherwise append
 if user_input not in viable:
     print("ID not recognized. Please try again.")
 else:
     user_list.append(user_input)
+
 
 #Second input. If not viable, get to viable, otherwise append.
 while user_input != "done":
@@ -60,6 +68,7 @@ while user_input != "done":
     else: user_list.append(user_input)
 else:
     print("DONE")
+
 
 #Remove "Done" from list.
 user_list.remove('done')
@@ -76,9 +85,13 @@ print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print("----------------------------------")
 print("SELECTED PRODUCTS:")
 
-for items in products:
-    # price_usd = to_usd(products[items]['price'])
-    # print(f"{products[items]['name']} (${price_usd})")
+for i in user_list:
+    print([p['name'] for p in products if p["id"] == int(i)])
+
+
+# for items in products:
+#     price_usd = to_usd(products[items]['price'])
+#     print(f"{products[items]['name']} (${price_usd})")
 
 # for items in user_list:
 #     print(items.products['id'])
@@ -87,7 +100,7 @@ for items in products:
     # price = " (${0:.2f})".format(products["price"])
     # print (name+price)
 
-
+#REFERENCES
 #print(f"{item['name']}...${price_usd}") #You can insert dictionary references in here, too
 #     price_usd = to_usd(item['price'])
 
