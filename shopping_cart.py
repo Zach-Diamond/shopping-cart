@@ -34,7 +34,7 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
  ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-###ESTABLISHING BASLINES
+#####ESTABLISHING BASLINES#####
 
 #Initializing empty list for user inputs
 user_list = []
@@ -43,6 +43,7 @@ user_list = []
 viable = [p["id"] for p in products]
 viable.append("done")
 viable = str(viable)
+
 
 #####USER INPUT SECTION#####
 
@@ -69,19 +70,19 @@ while user_input != "done":
 else:
     print("")
 
-#Remove "Done" from list.
+#Remove "Done" from list, reduce id by 1 to fix error in iterable.
 user_list.remove('done')
-
-#print(user_list)
+user_list = [(int(i)-1) for i in user_list]
 
 #####RECEIPT PRINTING SECTION#####
 
-print("----------------------------------")
-print("QUESTIONABLY FRESH GROCERIES")
-print("WWW.QUESTIONABLY-FRESH-GROCERIES.EDU")
-print("----------------------------------")
-print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-print("----------------------------------")
+print("------------------------------------------")
+print("PROBABLY FRESH GROCERS")
+print('"Guaranteed To Be Somewhat Fresh!"')
+print("WWW.PROBABLY-FRESH.EDU")
+print("------------------------------------------")
+print(f"CHECKOUT AT: {datetime.now().strftime('%Y-%m-%d %I:%M:%S %p')}") #24 hour time:  {datetime.now().strftime('%Y-%m-%d %H:%M:%S ')}")
+print("------------------------------------------")
 print("SELECTED PRODUCTS:")
 
 #Creating receipt output (... Name  ($123))
@@ -91,8 +92,7 @@ for i in user_list:
 
 #Adding a total price list
 chosen_prices = []
-for i in user_list:
-     chosen_prices.append(products[int(i)]['price'])
+[chosen_prices.append(products[int(i)]['price']) for i in user_list]
 
 #Setting Tax Rate (8.75%)
 taxrate = .0875
@@ -100,13 +100,11 @@ taxincrease = 1.0875
 
 #Simple Tax (8.875%)
 tax = []
-for i in chosen_prices:
-    tax.append(i*taxrate)
+[tax.append(i*taxrate) for i in chosen_prices]
 
 #Increasing by Tax Rate (8.875%)
 tax_plus_price = []
-for i in chosen_prices:
-    tax_plus_price.append(i*taxincrease)
+[tax_plus_price.append(i*taxincrease) for i in chosen_prices]
 
 #Sum and print total price and tax 
 total_price = to_usd(np.sum(chosen_prices))
@@ -114,23 +112,18 @@ total_tax = to_usd(np.sum(tax))
 total_price_tax = to_usd(np.sum(tax_plus_price))
 
 #Printing totals
-print("----------------------------------")
+print("------------------------------------------")
 
 print("SUBTOTAL: "+total_price)
 print("TAX: "+total_tax)
 print("TOTAL: "+total_price_tax)
 
-print("----------------------------------")
-print("THANKS, SEE YOU AGAIN SOON!")
-print("----------------------------------")
+print("------------------------------------------")
+print("THANKS, SEE YOU AGAIN SOON! NO RETURNS!")
+print("------------------------------------------")
 
 
-
-
-
-
-
-
+##To upload, delete prof nyu-info2335-201905 an then re-fork it
 
 
 # for i in user_list:
@@ -141,7 +134,6 @@ print("----------------------------------")
 
 # for items in user_list:
 #     print(items.products['id'])
-
     # name = " ... "+items.products["name"].title()
     # price = " (${0:.2f})".format(products["price"])
     # print (name+price)
@@ -178,3 +170,24 @@ print("----------------------------------")
 # for i in user_list:
 #     print([[p['name']," (${0:.2f})".format(p['price'])] 
 #     for p in products if p["id"] == int(i)])
+
+
+### Non list comprehension approach
+# #Adding a total price list
+# chosen_prices = []
+# for i in user_list:
+#      chosen_prices.append(products[int(i)]['price'])
+
+# #Setting Tax Rate (8.75%)
+# taxrate = .0875
+# taxincrease = 1.0875
+
+# #Simple Tax (8.875%)
+# tax = []
+# for i in chosen_prices:
+#     tax.append(i*taxrate)
+
+# #Increasing by Tax Rate (8.875%)
+# tax_plus_price = []
+# for i in chosen_prices:
+#     tax_plus_price.append(i*taxincrease)
