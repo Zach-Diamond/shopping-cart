@@ -9,5 +9,6 @@
    python shopping_cart.py
 
 4. Enter in items by ID to "build" receipt
+   1. Valid IDs are 1-20, but program will stop you from entering invalid IDs.
 
 5. When done entering IDs, type "Done" to print receipt.
